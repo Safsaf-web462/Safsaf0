@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>✨Safsaf✨ - Outfit Creator 💖</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #ffe6f2;
+    text-align: center;
+}
+
+header {
+    background: #ff4da6;
+    color: white;
+    padding: 20px;
+    font-size: 26px;
+}
+
+.container {
+    margin: 20px;
+}
+
+input, select, button {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    border: none;
+}
+
+button {
+    background: #ff3399;
+    color: white;
+    cursor: pointer;
+}
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.card {
+    background: white;
+    border-radius: 15px;
+    margin: 10px;
+    width: 200px;
+    padding: 10px;
+    position: relative;
+}
+
+.card img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.heart {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.favorites {
+    margin-top: 30px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+✨Safsaf✨ 💖 Outfit Creator
+</header>
+
+<div class="container">
+
+<input type="text" id="capo" placeholder="Es: jeans, top nero...">
+
+<select id="stile">
+    <option>Casual</option>
+    <option>Elegante</option>
+    <option>Streetwear</option>
+    <option>Anni 80</option>
+</select>
+
+<br>
+
+<button onclick="generaOutfit()">Genera Outfit ✨</button>
+
+<div class="gallery" id="gallery"></div>
+
+<div class="favorites">
+<h2>💗 Preferiti Safsaf</h2>
+<div class="gallery" id="preferiti"></div>
+</div>
+
+</div>
+
+<script>
+let immagini = {
+    "Casual": [
+        "https://source.unsplash.com/200x200/?casual,outfit",
+        "https://source.unsplash.com/200x200/?jeans,style"
+    ],
+    "Elegante": [
+        "https://source.unsplash.com/200x200/?elegant,outfit",
+        "https://source.unsplash.com/200x200/?dress,heels"
+    ],
+    "Streetwear": [
+        "https://source.unsplash.com/200x200/?streetwear",
+        "https://source.unsplash.com/200x200/?hoodie,style"
+    ],
+    "Anni 80": [
+        "https://source.unsplash.com/200x200/?80s,fashion",
+        "https://source.unsplash.com/200x200/?retro,outfit"
+    ]
+};
+
+function generaOutfit() {
+
+    let stile = document.getElementById("stile").value;
+    let gallery = document.getElementById("gallery");
+
+    gallery.innerHTML = "";
+
+    immagini[stile].forEach(src => {
+
+        let card = document.createElement("div");
+        card.className = "card";
+
+        let img = document.createElement("img");
+        img.src = src;
+
+        let heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "🤍";
+
+        heart.onclick = function() {
+            heart.innerHTML = "💗";
+
+            let clone = card.cloneNode(true);
+            clone.querySelector(".heart").remove();
+
+            document.getElementById("preferiti").appendChild(clone);
+        };
+
+        card.appendChild(img);
+        card.appendChild(heart);
+        gallery.appendChild(card);
+    });
+}
+</script>
+
+</body>
+</html>
